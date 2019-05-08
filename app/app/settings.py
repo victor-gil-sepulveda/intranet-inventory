@@ -1,4 +1,4 @@
-from intranetinventory.eve.model import item, location
+from app.model import item, location
 
 DOMAIN = {
     'item': item,
@@ -12,13 +12,13 @@ DATE_FORMAT = "%m/%d/%y %H:%M:%S"
 
 # Please note that MONGO_HOST and MONGO_PORT could very well be left
 # out as they already default to a bare bones local 'mongod' instance.
-MONGO_HOST = 'localhost'
+MONGO_HOST = 'mongo-db'
 MONGO_PORT = 27017
 
 # Skip these if your db has no auth. But it really should.
-#MONGO_USERNAME = '<your username>'
-#MONGO_PASSWORD = '<your password>'
-#MONGO_AUTH_SOURCE = 'admin'  # needed if --auth mode is enabled
+MONGO_USERNAME = 'root'
+MONGO_PASSWORD = 'example'
+MONGO_AUTH_SOURCE = 'admin'  # needed if --auth mode is enabled
 
 MONGO_DBNAME = 'inventory'
 
