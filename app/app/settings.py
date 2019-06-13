@@ -1,8 +1,8 @@
-from app.model import item, location
+from app.model import item, user, location
 
 DOMAIN = {
     'item': item,
-    #'user': {},
+    'user': user,
     'location': location
 }
 
@@ -33,5 +33,5 @@ RESOURCE_METHODS = ['GET', 'POST', 'DELETE']
 ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
 
 # Cross Request
-X_DOMAINS = '*'
-X_HEADERS = ['Authorization', 'Content-type']
+#X_DOMAINS = '*'
+#X_HEADERS = ['Authorization', 'Content-type']

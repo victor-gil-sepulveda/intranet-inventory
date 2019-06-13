@@ -1,10 +1,12 @@
+from datetime import datetime
+to_date = lambda s: datetime.strptime(s, '%d/%m/%Y')
+
 item_schema = {
     'code': {
         'type': 'string',
-        'minlength': 6,
-        'maxlength': 6,
         'required': True,
         'unique': True,
+        'regex': "[A-Z]{3}_[0-9]{4}"
     },
 
     'name': {
@@ -19,18 +21,35 @@ item_schema = {
         "schema": {
             'type': 'dict',
             'schema': {
-                'user': {
-                    'type': "dbref"
+                'name': {
+                    'type': "string"
                 },
-                'first_used': {
-                    'type': 'datetime'
+                'id': {
+                    'type': "string"
+                },
+                'usage_start': {
+                    'type': 'datetime',
+                    'coerce': to_date
+                },
+                'usage_end': {
+                    'type': 'datetime',
+                    'coerce': to_date,
+                    'nullable': True
                 }
             }
         }
     },
 
     'location': {
-        'type': 'dbref'
+        'type': 'dict',
+        'schema': {
+            'name': {
+                'type': "string"
+            },
+            'id': {
+                'type': "string"
+            }
+        }
     },
 
     'invoice': {
@@ -46,7 +65,7 @@ item = {
     'item_title': 'item',
 
     'additional_lookup': {
-        'url': 'regex("[\w]+[\d]+")', #TODO: improve regular expression and add it as a check
+        'url': 'regex("[A-Z]{3}_[0-9]{4}")',
         'field': 'code'
     },
 
@@ -63,21 +82,35 @@ user_schema = {
         "type": "string"
     },
     "email": {
-
+        "type": "string",
+        "regex": "\A[a-z0-9\+\-_\.]+@[a-z\d\-.]+\.[a-z]+\Z"
     }
 }
 
 user = {
-    "schema": user_schema
+    'item_title': 'user',
+    "schema": user_schema,
+    'item_methods': ['PATCH', 'PUT', 'DELETE']
 }
 
 location_schema = {
+    "name": {
+        "type": "string",
+        "required": True
+    },
     "address": {
-        "type": "string"
+        "type": "string",
+        "required": True
+    },
+    "description": {
+        "type": "string",
+        "required": False
     }
 }
 
 location = {
-    "schema": location_schema
+    'item_title': 'location',
+    "schema": location_schema,
+    'item_methods': ['PATCH', 'PUT', 'DELETE'],
 }
 
